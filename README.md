@@ -37,3 +37,127 @@ Part2：新产品导入事项总结
   1)DV阶段各项准备工作完成，产品导入量产并出货至客户
   2)定期收集并监控CTQ数据，调查改善产品量产过程中的异常情况
   3)直至出货量达标，产品不再进行投产，该产品生命周期到此结束，等待有订单量后下一次投产；
+
+
+
+
+MyAPP
+package com.ysLearning.domain;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+public class MyApp {
+
+    public static void main(String[] args) throws IOException {
+        //访问mybatis，读取student数据
+        //1.定义mybatis主配置文件的名称，从类路径的根开始（target/classes）
+        String config="mybatis.xml";
+        //2.读取config代表的xml文件
+        InputStream in= Resources.getResourceAsStream(config);
+        //3。创建sqlSessionFactoryBuilder对象
+        SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
+        //4.创建sqlSessionFactory对象
+        SqlSessionFactory factory;
+        factory = builder.build(in);
+        //5.[重要]获取SqlSession对象，从SqlSessionFactory中获取
+        SqlSession sqlSession=factory.openSession(true);
+        //6.[重要]指定要执行的sql语句的标识-sql映射文件中的namespace+"."+标签的id值
+        String sqlid="com.ysLearning.dao.StudentDao.selectStudent";
+        //7.执行sql语句，通过sqlid找到语句
+        List<Student> studentList= sqlSession.selectList(sqlid);
+        //8.输出结果
+        studentList.forEach(stu->System.out.println(stu));
+
+        sqlSession.close();
+    }
+}
+
+
+
+
+
+MyBatisUtils
+
+package com.ysLearning.domain;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+public class MyApp {
+
+    public static void main(String[] args) throws IOException {
+        //访问mybatis，读取student数据
+        //1.定义mybatis主配置文件的名称，从类路径的根开始（target/classes）
+        String config="mybatis.xml";
+        //2.读取config代表的xml文件
+        InputStream in= Resources.getResourceAsStream(config);
+        //3。创建sqlSessionFactoryBuilder对象
+        SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
+        //4.创建sqlSessionFactory对象
+        SqlSessionFactory factory;
+        factory = builder.build(in);
+        //5.[重要]获取SqlSession对象，从SqlSessionFactory中获取
+        SqlSession sqlSession=factory.openSession(true);
+        //6.[重要]指定要执行的sql语句的标识-sql映射文件中的namespace+"."+标签的id值
+        String sqlid="com.ysLearning.dao.StudentDao.selectStudent";
+        //7.执行sql语句，通过sqlid找到语句
+        List<Student> studentList= sqlSession.selectList(sqlid);
+        //8.输出结果
+        studentList.forEach(stu->System.out.println(stu));
+
+        sqlSession.close();
+    }
+}
+
+
+
+MyAppWithUtils:
+package com.ysLearning.domain;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+public class MyApp {
+
+    public static void main(String[] args) throws IOException {
+        //访问mybatis，读取student数据
+        //1.定义mybatis主配置文件的名称，从类路径的根开始（target/classes）
+        String config="mybatis.xml";
+        //2.读取config代表的xml文件
+        InputStream in= Resources.getResourceAsStream(config);
+        //3。创建sqlSessionFactoryBuilder对象
+        SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
+        //4.创建sqlSessionFactory对象
+        SqlSessionFactory factory;
+        factory = builder.build(in);
+        //5.[重要]获取SqlSession对象，从SqlSessionFactory中获取
+        SqlSession sqlSession=factory.openSession(true);
+        //6.[重要]指定要执行的sql语句的标识-sql映射文件中的namespace+"."+标签的id值
+        String sqlid="com.ysLearning.dao.StudentDao.selectStudent";
+        //7.执行sql语句，通过sqlid找到语句
+        List<Student> studentList= sqlSession.selectList(sqlid);
+        //8.输出结果
+        studentList.forEach(stu->System.out.println(stu));
+
+        sqlSession.close();
+    }
+}
